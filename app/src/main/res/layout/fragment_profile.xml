@@ -55,7 +55,16 @@
                 android:id="@+id/txtProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📈 Tiến độ tập luyện"
+                android:text="📅 Lịch tập cá nhân"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:padding="14dp"/>
+
+            <TextView
+                android:id="@+id/txtCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📷 QR Check-in"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:padding="14dp"/>

@@ -1,14 +1,23 @@
 package com.example.fitbody.adapter
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitbody.R
+import com.example.fitbody.api.RetrofitClient
+import com.example.fitbody.model.SimpleResponse
 import com.example.fitbody.model.Workout
 import com.example.fitbody.ui.detail.WorkoutDetailActivity
+import com.example.fitbody.utils.SessionManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class WorkoutAdapter(
 
@@ -29,6 +38,9 @@ class WorkoutAdapter(
 
         val txtMuscleGroup: TextView =
             view.findViewById(R.id.txtMuscleGroup)
+
+        val imgFavorite: ImageView =
+            view.findViewById(R.id.imgFavorite)
     }
 
     override fun onCreateViewHolder(
@@ -72,6 +84,58 @@ class WorkoutAdapter(
         holder.txtMuscleGroup.text =
             "Nhóm cơ: ${workout.muscle_group}"
 
+        holder.imgFavorite.setColorFilter(Color.WHITE)
+
+        holder.imgFavorite.setOnClickListener {
+
+            val session =
+                SessionManager(holder.itemView.context)
+
+            val userId =
+                session.getUserId()
+
+            if (userId == 0) {
+                Toast.makeText(
+                    holder.itemView.context,
+                    "Bạn cần đăng nhập lại",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            RetrofitClient.instance
+                .addWorkoutFavorite(
+                    userId,
+                    workout.id
+                )
+                .enqueue(object : Callback<SimpleResponse> {
+
+                    override fun onResponse(
+                        call: Call<SimpleResponse>,
+                        response: Response<SimpleResponse>
+                    ) {
+                        holder.imgFavorite.setColorFilter(Color.RED)
+
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Đã thêm bài tập vào yêu thích",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    override fun onFailure(
+                        call: Call<SimpleResponse>,
+                        t: Throwable
+                    ) {
+                        Toast.makeText(
+                            holder.itemView.context,
+                            "Lỗi kết nối server",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+        }
+
         holder.itemView.setOnClickListener {
 
             val intent =
@@ -86,8 +150,7 @@ class WorkoutAdapter(
             intent.putExtra("muscle", workout.muscle_group)
             intent.putExtra("video_url", workout.video_url)
 
-            holder.itemView.context
-                .startActivity(intent)
+            holder.itemView.context.startActivity(intent)
         }
     }
 }

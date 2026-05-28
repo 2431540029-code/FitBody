@@ -8,11 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitbody.R
-import com.example.fitbody.adapter.TrainerAdapter
+import com.example.fitbody.adapter.WorkoutAdapter
 import com.example.fitbody.api.RetrofitClient
-import com.example.fitbody.model.SimpleResponse
-import com.example.fitbody.model.Trainer
-import com.example.fitbody.ui.detail.TrainerDetailActivity
+import com.example.fitbody.model.Workout
+import com.example.fitbody.ui.detail.WorkoutDetailActivity
 import com.example.fitbody.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,103 +48,32 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
             session.getUserId()
 
         RetrofitClient.instance
-            .getFavorites(userId)
-            .enqueue(object : Callback<List<Trainer>> {
+            .getWorkoutFavorites(userId)
+            .enqueue(object : Callback<List<Workout>> {
 
                 override fun onResponse(
-                    call: Call<List<Trainer>>,
-                    response: Response<List<Trainer>>
+                    call: Call<List<Workout>>,
+                    response: Response<List<Workout>>
                 ) {
+
                     if (response.isSuccessful) {
 
                         val list =
                             response.body() ?: emptyList()
 
                         recyclerFavorite.adapter =
-                            TrainerAdapter(
-
-                                list,
-
-                                { trainer ->
-
-                                    val intent =
-                                        Intent(
-                                            requireContext(),
-                                            TrainerDetailActivity::class.java
-                                        )
-
-                                    intent.putExtra("trainer_id", trainer.id)
-                                    intent.putExtra("trainer_name", trainer.name)
-                                    intent.putExtra("trainer_specialty", trainer.specialty)
-                                    intent.putExtra("trainer_image", trainer.image)
-                                    intent.putExtra("trainer_calories", trainer.calories)
-                                    intent.putExtra("trainer_muscle", trainer.muscle)
-                                    intent.putExtra("trainer_schedule", trainer.schedule)
-                                    intent.putExtra("trainer_description", trainer.description)
-
-                                    startActivity(intent)
-                                },
-
-                                { trainer ->
-
-                                    removeFavorite(
-                                        trainer.id
-                                    )
-                                }
-                            )
+                            WorkoutAdapter(list)
                     }
                 }
 
                 override fun onFailure(
-                    call: Call<List<Trainer>>,
+                    call: Call<List<Workout>>,
                     t: Throwable
                 ) {
+
                     Toast.makeText(
                         requireContext(),
-                        "Không tải được danh sách yêu thích",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            })
-    }
-
-    private fun removeFavorite(
-        trainerId: Int
-    ) {
-
-        val session =
-            SessionManager(requireContext())
-
-        val userId =
-            session.getUserId()
-
-        RetrofitClient.instance
-            .removeFavorite(
-                userId,
-                trainerId
-            )
-            .enqueue(object : Callback<SimpleResponse> {
-
-                override fun onResponse(
-                    call: Call<SimpleResponse>,
-                    response: Response<SimpleResponse>
-                ) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Đã bỏ khỏi yêu thích",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    loadFavorites()
-                }
-
-                override fun onFailure(
-                    call: Call<SimpleResponse>,
-                    t: Throwable
-                ) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Lỗi kết nối server",
+                        "Không tải được bài tập yêu thích",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

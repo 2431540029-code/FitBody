@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.fitbody.R
+import com.example.fitbody.ui.CheckInActivity
 import com.example.fitbody.ui.auth.LoginActivity
 import com.example.fitbody.utils.SessionManager
 
@@ -16,6 +17,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var btnLogout: Button
 
     private lateinit var txtProgress: TextView
+    private lateinit var txtCheckIn: TextView
     private lateinit var txtEditProfile: TextView
     private lateinit var txtChangePassword: TextView
     private lateinit var txtSettings: TextView
@@ -32,6 +34,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         txtProgress =
             view.findViewById(R.id.txtProgress)
 
+        txtCheckIn =
+            view.findViewById(R.id.txtCheckIn)
+
         txtEditProfile =
             view.findViewById(R.id.txtEditProfile)
 
@@ -46,9 +51,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 .beginTransaction()
                 .replace(
                     R.id.frameLayout,
-                    ProgressFragment()
+                    ScheduleFragment()
                 )
+                .addToBackStack(null)
                 .commit()
+        }
+
+        txtCheckIn.setOnClickListener {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    CheckInActivity::class.java
+                )
+            )
         }
 
         txtEditProfile.setOnClickListener {
