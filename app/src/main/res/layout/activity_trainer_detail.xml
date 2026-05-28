@@ -38,7 +38,7 @@
                 android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="David Laid"
+                android:text=""
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
@@ -47,7 +47,7 @@
                 android:id="@+id/txtSpecialty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aesthetic Bodybuilder"
+                android:text=""
                 android:textColor="#AAAAAA"
                 android:textSize="18sp"
                 android:layout_marginTop="8dp"/>
@@ -56,7 +56,7 @@
                 android:id="@+id/txtCalories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calories: 3200 kcal"
+                android:text=""
                 android:textColor="#FF5252"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -66,7 +66,7 @@
                 android:id="@+id/txtMuscle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nhóm cơ: Ngực • Vai • Tay"
+                android:text=""
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
                 android:layout_marginTop="12dp"/>
@@ -75,10 +75,98 @@
                 android:id="@+id/txtSchedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lịch tập"
+                android:text=""
                 android:textColor="#CCCCCC"
                 android:textSize="16sp"
                 android:layout_marginTop="12dp"/>
+
+            <EditText
+                android:id="@+id/edtSearchWorkout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Tìm bài tập..."
+                android:textColor="#FFFFFF"
+                android:textColorHint="#888888"
+                android:backgroundTint="#7C4DFF"
+                android:padding="12dp"
+                android:layout_marginTop="22dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Tất cả"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#7C4DFF"/>
+
+                    <Button
+                        android:id="@+id/btnChest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Ngực"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#333333"
+                        android:layout_marginStart="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnArm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Tay"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#333333"
+                        android:layout_marginStart="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnLeg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Chân"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#333333"
+                        android:layout_marginStart="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnBackMuscle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Lưng"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#333333"
+                        android:layout_marginStart="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnShoulder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Vai"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#333333"
+                        android:layout_marginStart="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnCardio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:text="Cardio"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#333333"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <TextView
                 android:layout_width="wrap_content"

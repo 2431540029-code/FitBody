@@ -61,10 +61,35 @@ class WorkoutTimerActivity : AppCompatActivity() {
 
         val gifRes =
             when {
-                workoutName.contains("bench", true) ||
+                muscle.contains("ngực", true) ||
+                        workoutName.contains("bench", true) ||
                         workoutName.contains("press", true) ||
-                        muscle.contains("ngực", true) -> {
+                        workoutName.contains("fly", true) -> {
                     R.raw.bench_press
+                }
+
+                muscle.contains("tay", true) ||
+                        workoutName.contains("curl", true) -> {
+                    R.raw.biceps_curl
+                }
+
+                muscle.contains("chân", true) ||
+                        workoutName.contains("squat", true) ||
+                        workoutName.contains("hip", true) ||
+                        workoutName.contains("bulgarian", true) -> {
+                    R.raw.squat
+                }
+
+                muscle.contains("lưng", true) ||
+                        workoutName.contains("deadlift", true) ||
+                        workoutName.contains("row", true) -> {
+                    R.raw.deadlift
+                }
+
+                muscle.contains("cardio", true) ||
+                        workoutName.contains("mountain", true) ||
+                        workoutName.contains("yoga", true) -> {
+                    R.raw.jumping_jack
                 }
 
                 else -> {
